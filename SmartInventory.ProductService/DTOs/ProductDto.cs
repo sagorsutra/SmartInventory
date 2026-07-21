@@ -1,7 +1,7 @@
 ﻿namespace SmartInventory.ProductService.DTOs
 {
     public record ProductDto(
-        int ProductId,
+        string ProductId,
         string Name,
         string Description,
         decimal Price,

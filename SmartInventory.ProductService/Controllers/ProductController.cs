@@ -25,7 +25,7 @@ namespace SmartInventory.ProductService.Controllers
 
         [HttpGet("{id}")]
 
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById(string id)
         {
             var product = await _productService.GetByIdAsync(id);
 
@@ -48,7 +48,7 @@ namespace SmartInventory.ProductService.Controllers
         }
 
             [HttpPut("{id}")]
-            public async Task<IActionResult> Update(int id, UpdateProductRequest request)
+            public async Task<IActionResult> Update(string id, UpdateProductRequest request)
             {
                 var success = await _productService.UpdateAsync(id, request);
 
@@ -63,7 +63,7 @@ namespace SmartInventory.ProductService.Controllers
 
         [HttpDelete("{id}")]
 
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(string id)
         {
             var delete = await _productService.DeleteAsync(id);
 
