@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="SmartInventory.Gateway/SmartInventory.Gateway.csproj" Id="c796100e-ddb4-4988-9a37-d6ed57460724" />
   <Project Path="SmartInventory.ProductService/SmartInventory.ProductService.csproj" />
 </Solution>
