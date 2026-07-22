@@ -12,10 +12,10 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["SmartInventory.ProductService/SmartInventory.ProductService.csproj", "SmartInventory.ProductService/"]
-RUN dotnet restore "./SmartInventory.ProductService/SmartInventory.ProductService.csproj"
+COPY ["SmartInventory.ProductService.csproj", "./"]
+RUN dotnet restore "./SmartInventory.ProductService.csproj"
 COPY . .
-WORKDIR "/src/SmartInventory.ProductService"
+WORKDIR "/src"
 RUN dotnet build "./SmartInventory.ProductService.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
