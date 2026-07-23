@@ -8,13 +8,10 @@ var app = builder.Build();
 // Debug endpoint - temporary
 app.MapGet("/debug-config", (IConfiguration config) =>
 {
-    var routes = config.GetSection("ReverseProxy:Routes").GetChildren();
-    var result = routes.Select(r => new {
-        Id = r.Key,
-        Path = r["Match:Path"],
-        ClusterId = r["ClusterId"]
-    });
-    return Results.Json(result);
+    var allKeys = config.AsEnumerable()
+        .Where(kvp => kvp.Key.StartsWith("ReverseProxy") || kvp.Key.StartsWith("Logging"))
+        .Select(kvp => new { kvp.Key, kvp.Value });
+    return Results.Json(allKeys);
 });
 
 app.MapReverseProxy();
