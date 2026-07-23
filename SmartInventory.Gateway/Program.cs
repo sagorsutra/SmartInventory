@@ -6,12 +6,20 @@ builder.Services.AddReverseProxy()
 var app = builder.Build();
 
 // Debug endpoint - temporary
-app.MapGet("/debug-config", (IConfiguration config) =>
+app.MapGet("/debug-config", () =>
 {
-    var allKeys = config.AsEnumerable()
-        .Where(kvp => kvp.Key.StartsWith("ReverseProxy") || kvp.Key.StartsWith("Logging"))
-        .Select(kvp => new { kvp.Key, kvp.Value });
-    return Results.Json(allKeys);
+    var currentDir = Directory.GetCurrentDirectory();
+    var files = Directory.GetFiles(currentDir);
+    var appsettingsExists = File.Exists(Path.Combine(currentDir, "appsettings.json"));
+    string content = appsettingsExists ? File.ReadAllText(Path.Combine(currentDir, "appsettings.json")) : "FILE NOT FOUND";
+
+    return Results.Json(new
+    {
+        currentDir,
+        files,
+        appsettingsExists,
+        content
+    });
 });
 
 app.MapReverseProxy();
