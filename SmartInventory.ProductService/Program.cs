@@ -26,6 +26,11 @@ builder.Services.AddSingleton<IMongoClient>(sp =>
 //builder.Services.AddDbContext<ProductDbContext>(options =>
 //    options.UseSqlServer(builder.Configuration.GetConnectionString("ProductDbConnection")));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+        policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+});
 
 var app = builder.Build();
 
@@ -35,6 +40,8 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.MapScalarApiReference();
 }
+
+app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
 
