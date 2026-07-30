@@ -12,7 +12,7 @@ body {
 }
 
 header {
-    max-width: 780px;
+    max-width: 900px;
     margin: 0 auto 24px;
     border-bottom: 2px solid #1C1B18;
     padding-bottom: 14px;
@@ -31,56 +31,101 @@ header p {
 }
 
 main {
-    max-width: 780px;
+    max-width: 900px;
     margin: 0 auto;
 }
+
+/* Form */
+
+#product-form {
+    background: #FFFFFF;
+    border: 1px solid #E4E0D4;
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#product-form h2 {
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+#product-form input {
+    padding: 8px 10px;
+    border: 1px solid #E4E0D4;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: inherit;
+}
+
+.form-actions {
+    display: flex;
+    gap: 8px;
+}
+
+#product-form button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#submit-btn {
+    background: #1C1B18;
+    color: #FFFFFF;
+}
+
+#cancel-edit-btn {
+    background: #E4E0D4;
+    color: #1C1B18;
+}
+
+/* List header: search + count */
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.search-box {
+    flex: 1;
+}
+
+#search-input {
+    width: 100%;
+    max-width: 340px;
+    padding: 9px 12px;
+    border: 1px solid #E4E0D4;
+    border-radius: 20px;
+    font-size: 13px;
+    font-family: inherit;
+    background: #FFFFFF;
+}
+
+#search-input:focus {
+    outline: none;
+    border-color: #B5652E;
+}
+
+#item-count {
+    font-size: 12px;
+    color: #8A8574;
+    white-space: nowrap;
+}
+
+/* Status */
 
 #status-message {
     color: #8A8574;
     font-size: 14px;
     margin-bottom: 16px;
-}
-
-.product-card {
-    background: #FFFFFF;
-    border: 1px solid #E4E0D4;
-    border-radius: 6px;
-    padding: 14px 16px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px;
-}
-
-.product-info h2 {
-    font-size: 15px;
-    font-weight: 600;
-}
-
-.product-category {
-    display: inline-block;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: #B5652E;
-    background: #FBEEDE;
-    padding: 2px 7px;
-    border-radius: 3px;
-    margin-left: 8px;
-}
-
-.product-info p {
-    font-size: 13px;
-    color: #6E6A5C;
-    margin-top: 3px;
-}
-
-.product-price {
-    font-family: 'Courier New', monospace;
-    font-size: 17px;
-    font-weight: 600;
-    white-space: nowrap;
 }
 
 .error-box {
@@ -90,4 +135,107 @@ main {
     padding: 16px;
     color: #7A2E1D;
     font-size: 14px;
+}
+
+.empty-box {
+    text-align: center;
+    padding: 40px 20px;
+    color: #B0AA96;
+    font-size: 13px;
+    border: 1px dashed #E4E0D4;
+    border-radius: 6px;
+}
+
+/* Product grid + cards */
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 12px;
+}
+
+.product-card {
+    background: #FFFFFF;
+    border: 1px solid #E4E0D4;
+    border-radius: 8px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-2px);
+    border-color: #D8CFB8;
+    box-shadow: 0 4px 14px rgba(28, 27, 24, 0.08);
+}
+
+.product-info h2 {
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.product-category {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #B5652E;
+    background: #FBEEDE;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-weight: 600;
+}
+
+.product-info p {
+    font-size: 13px;
+    color: #6E6A5C;
+    margin-top: 4px;
+    line-height: 1.4;
+}
+
+.product-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px dashed #E4E0D4;
+    padding-top: 10px;
+}
+
+.product-price {
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.product-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.product-actions button {
+    border: 1px solid #E4E0D4;
+    background: #FFFFFF;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.edit-btn:hover {
+    border-color: #1C1B18;
+}
+
+.delete-btn {
+    color: #A32D2D;
+    border-color: #E8B8B8 !important;
+}
+
+.delete-btn:hover {
+    background: #FBECEA;
 }

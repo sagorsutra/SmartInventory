@@ -14,10 +14,30 @@
     </header>
 
     <main>
+        <form id="product-form">
+            <h2 id="form-title">Add product</h2>
+            <input type="hidden" id="edit-id">
+            <input type="text" id="input-name" placeholder="Name" required>
+            <input type="text" id="input-description" placeholder="Description" required>
+            <input type="number" id="input-price" placeholder="Price" step="0.01" required>
+            <input type="text" id="input-category" placeholder="Category" required>
+            <div class="form-actions">
+                <button type="submit" id="submit-btn">Add product</button>
+                <button type="button" id="cancel-edit-btn" style="display:none;">Cancel</button>
+            </div>
+        </form>
+
+        <div class="list-header">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Search by name or category">
+            </div>
+            <span id="item-count"></span>
+        </div>
+
         <div id="status-message"></div>
 
-        <div id="product-list">
-            <!-- Products will be inserted here by script.js -->
+        <div id="product-list" class="product-grid">
+            <!-- Products are inserted here by script.js -->
         </div>
     </main>
 
