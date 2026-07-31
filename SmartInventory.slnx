@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="SmartInventory.Gateway/SmartInventory.Gateway.csproj" Id="c796100e-ddb4-4988-9a37-d6ed57460724" />
+  <Project Path="SmartInventory.InventoryService/SmartInventory.InventoryService.csproj" Id="b41fd733-d204-495b-bbdc-8dd71b3206c7" />
   <Project Path="SmartInventory.OrderService/SmartInventory.OrderService.csproj" Id="fbafb1ad-a55f-46f8-b52c-15eac5e06ba3" />
   <Project Path="SmartInventory.ProductService/SmartInventory.ProductService.csproj" />
 </Solution>

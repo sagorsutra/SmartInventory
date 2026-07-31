@@ -484,3 +484,6 @@ $RECYCLE.BIN/
 SmartInventory.ProductService/appsettings.json
 
 SmartInventory.OrderService/appsettings.json
+
+SmartInventory.InventoryService/appsettings.json
+
