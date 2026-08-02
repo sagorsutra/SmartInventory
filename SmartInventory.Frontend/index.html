@@ -3,44 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartInventory - Products</title>
+    <title>SmartInventory — Console</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header>
-        <h1>SmartInventory</h1>
-        <p>Product Stock List</p>
-    </header>
-
-    <main>
-        <form id="product-form">
-            <h2 id="form-title">Add product</h2>
-            <input type="hidden" id="edit-id">
-            <input type="text" id="input-name" placeholder="Name" required>
-            <input type="text" id="input-description" placeholder="Description" required>
-            <input type="number" id="input-price" placeholder="Price" step="0.01" required>
-            <input type="text" id="input-category" placeholder="Category" required>
-            <div class="form-actions">
-                <button type="submit" id="submit-btn">Add product</button>
-                <button type="button" id="cancel-edit-btn" style="display:none;">Cancel</button>
-            </div>
-        </form>
-
-        <div class="list-header">
-            <div class="search-box">
-                <input type="text" id="search-input" placeholder="Search by name or category">
-            </div>
-            <span id="item-count"></span>
+    <!-- ============ WELCOME / GATE SCREEN ============ -->
+    <div id="welcome-screen">
+        <div class="welcome-box">
+            <div class="welcome-mark">SI</div>
+            <h1>SmartInventory</h1>
+            <p class="welcome-tag">Operations Console</p>
+            <p class="welcome-copy">Sign in to manage products, orders, and stock.</p>
+            <button id="welcome-login-btn" class="btn btn-primary btn-block">Sign in</button>
+            <button id="welcome-register-btn" class="btn btn-ghost btn-block">Create an account</button>
         </div>
+    </div>
 
-        <div id="status-message"></div>
+    <!-- ============ APP SHELL ============ -->
+    <div id="app-shell" style="display:none;">
 
-        <div id="product-list" class="product-grid">
-            <!-- Products are inserted here by script.js -->
+        <aside id="sidebar">
+            <div class="brand">
+                <span class="brand-mark">SI</span>
+                <span class="brand-name">SmartInventory</span>
+            </div>
+
+            <button id="cart-btn" class="cart-btn">
+                <span>🛒 Cart</span>
+                <span id="cart-badge" class="cart-badge">0</span>
+            </button>
+
+            <nav id="sidebar-nav">
+                <button class="nav-item" data-tab="products" id="nav-products">
+                    <span class="nav-icon">▣</span><span class="nav-label">Products</span>
+                </button>
+                <button class="nav-item" data-tab="orders" id="nav-orders">
+                    <span class="nav-icon">▤</span><span class="nav-label">Orders</span>
+                </button>
+                <button class="nav-item" data-tab="inventory" id="nav-inventory">
+                    <span class="nav-icon">▥</span><span class="nav-label">Inventory</span>
+                </button>
+            </nav>
+
+            <div id="sidebar-footer">
+                <div id="user-card">
+                    <span id="user-role-dot" class="role-dot"></span>
+                    <div>
+                        <div id="user-name">—</div>
+                        <div id="user-role">—</div>
+                    </div>
+                </div>
+                <button id="logout-btn" class="btn btn-ghost btn-block btn-small">Sign out</button>
+            </div>
+        </aside>
+
+        <!-- Mobile top bar (shown under 860px instead of sidebar) -->
+        <header id="mobile-topbar">
+            <span class="brand-mark">SI</span>
+            <button id="mobile-cart-btn" class="cart-btn cart-btn-mobile">
+                <span>🛒</span><span id="mobile-cart-badge" class="cart-badge">0</span>
+            </button>
+            <span id="mobile-user"></span>
+            <button id="mobile-logout-btn" class="btn btn-ghost btn-small">Sign out</button>
+        </header>
+
+        <main id="content">
+
+            <!-- PRODUCTS -->
+            <section id="tab-products" class="tab-content">
+                <div class="page-head">
+                    <div>
+                        <p class="eyebrow">Catalog</p>
+                        <h2>Products</h2>
+                    </div>
+                </div>
+
+                <form id="product-form" class="panel">
+                    <p class="panel-title" id="form-title">Add product</p>
+                    <input type="hidden" id="edit-id">
+                    <div class="field-grid">
+                        <input type="text" id="input-name" placeholder="Name" required>
+                        <input type="text" id="input-category" placeholder="Category" required>
+                        <input type="number" id="input-price" placeholder="Price" step="0.01" required>
+                        <input type="text" id="input-description" placeholder="Description" required class="span-2">
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" id="submit-btn" class="btn btn-primary">Add product</button>
+                        <button type="button" id="cancel-edit-btn" class="btn btn-ghost" style="display:none;">Cancel</button>
+                    </div>
+                </form>
+
+                <div class="list-header">
+                    <input type="text" id="search-input" class="search-input" placeholder="Search by name or category…">
+                    <span id="item-count" class="count-pill"></span>
+                </div>
+
+                <div id="status-message" class="status-message"></div>
+                <div id="product-list" class="product-grid"></div>
+            </section>
+
+            <!-- ORDERS -->
+            <section id="tab-orders" class="tab-content">
+                <div class="page-head">
+                    <div>
+                        <p class="eyebrow">Fulfillment</p>
+                        <h2>Orders</h2>
+                    </div>
+                </div>
+
+                <div class="list-header">
+                    <input type="text" id="order-lookup-customer" class="search-input" placeholder="View orders for Customer ID…">
+                    <button id="order-lookup-btn" class="btn btn-ghost btn-small">View</button>
+                </div>
+
+                <div id="order-status-message" class="status-message"></div>
+                <div id="order-list" class="stack"></div>
+            </section>
+
+            <!-- INVENTORY -->
+            <section id="tab-inventory" class="tab-content">
+                <div class="page-head">
+                    <div>
+                        <p class="eyebrow">Stock control</p>
+                        <h2>Inventory</h2>
+                    </div>
+                </div>
+
+                <form id="inventory-form" class="panel">
+                    <p class="panel-title">Add stock record</p>
+                    <div class="field-grid">
+                        <input type="text" id="inv-product-id" placeholder="Product ID" required>
+                        <input type="number" id="inv-quantity" placeholder="Stock quantity" required>
+                        <input type="number" id="inv-threshold" placeholder="Reorder threshold" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" id="inv-submit-btn" class="btn btn-primary">Save record</button>
+                    </div>
+                </form>
+
+                <div class="list-header">
+                    <button id="inv-alerts-btn" class="btn btn-warn btn-small">⚠ Low-stock alerts</button>
+                    <input type="text" id="inv-lookup-id" class="search-input" placeholder="Check stock for Product ID…">
+                    <button id="inv-lookup-btn" class="btn btn-ghost btn-small">Check</button>
+                </div>
+
+                <div id="inventory-status-message" class="status-message"></div>
+                <div id="inventory-list" class="stack"></div>
+            </section>
+
+        </main>
+
+        <!-- Mobile bottom nav -->
+        <nav id="mobile-nav">
+            <button class="nav-item" data-tab="products" id="mnav-products"><span class="nav-icon">▣</span><span>Products</span></button>
+            <button class="nav-item" data-tab="orders" id="mnav-orders"><span class="nav-icon">▤</span><span>Orders</span></button>
+            <button class="nav-item" data-tab="inventory" id="mnav-inventory"><span class="nav-icon">▥</span><span>Inventory</span></button>
+        </nav>
+    </div>
+
+
+    <!-- ============ CART DRAWER ============ -->
+    <div id="cart-overlay" class="cart-overlay" style="display:none;">
+        <div id="cart-drawer">
+            <div class="cart-header">
+                <h3>Your cart</h3>
+                <button id="cart-close-btn" class="modal-close" aria-label="Close">✕</button>
+            </div>
+            <div id="cart-items" class="cart-items"></div>
+            <div id="cart-empty" class="empty-box" style="display:none;">Your cart is empty. Add products to get started.</div>
+            <div class="cart-footer">
+                <input type="text" id="cart-address" placeholder="Shipping address">
+                <div class="cart-total">
+                    <span>Total</span>
+                    <span id="cart-total-amount">₹0</span>
+                </div>
+                <button id="checkout-btn" class="btn btn-primary btn-block">Checkout</button>
+                <p id="cart-error" class="error-text"></p>
+            </div>
         </div>
-    </main>
+    </div>
 
-    <script src="script.js"></script>
+    <!-- ============ AUTH MODAL ============ -->
+    <div id="login-modal" class="modal-overlay" style="display:none;">
+        <div class="modal">
+            <p class="eyebrow" id="auth-modal-title">Sign in</p>
+            <h3 id="auth-modal-heading">Welcome back</h3>
+            <input type="text" id="auth-username" placeholder="Username">
+            <input type="password" id="auth-password" placeholder="Password">
+            <input type="email" id="auth-email" placeholder="Email" style="display:none;">
+            <select id="auth-role" style="display:none;">
+                <option value="Customer">Customer</option>
+                <option value="Staff">Warehouse Staff</option>
+                <option value="Admin">Admin</option>
+            </select>
+            <div class="modal-actions">
+                <button id="auth-submit-btn" class="btn btn-primary btn-block">Sign in</button>
+            </div>
+            <p id="auth-switch">No account? <a href="#" id="auth-switch-link">Register</a></p>
+            <p id="auth-error" class="error-text"></p>
+            <button id="auth-cancel-btn" class="modal-close" aria-label="Close">✕</button>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/orders.js"></script>
+    <script src="js/inventory.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
