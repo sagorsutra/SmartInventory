@@ -104,26 +104,32 @@ namespace SmartInventory.InventoryService.Services
             return inventory?.StockQuantity ?? 0;
         }
 
-            public async Task<IEnumerable<StockAlertDto>> GetLowStockAlertsAsync()
+        public async Task<IEnumerable<StockAlertDto>> GetLowStockAlertsAsync()
+        {
+            var lowStockInventories = await _inventories.Find(i => i.StockQuantity <= i.ReorderThreshold).ToListAsync();
+
+            var alerts = new List<StockAlertDto>();
+
+            foreach (var inventory in lowStockInventories)
             {
-                var lowStockInventories = await _inventories.Find(i => i.StockQuantity <= i.ReorderThreshold).ToListAsync();
-                //making a new list for the stockalart product
-                
-                var alerts = new List<StockAlertDto>();
-                
-               //query for filtering products 
-               foreach(var inventory in lowStockInventories)
-            {
-                var product = await _productServiceClient.GetProductByIdAsync(inventory.ProductId);
-                alerts.Add(new StockAlertDto(
-                       inventory.ProductId,
-                       product.Name,
-                       inventory.StockQuantity,
-                       inventory.ReorderThreshold
+                try
+                {
+                    var product = await _productServiceClient.GetProductByIdAsync(inventory.ProductId);
+                    alerts.Add(new StockAlertDto(
+                        inventory.ProductId,
+                        product.Name,
+                        inventory.StockQuantity,
+                        inventory.ReorderThreshold
                     ));
-              }
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+            }
+
             return alerts;
         }
-        }
+    }
     }
 
