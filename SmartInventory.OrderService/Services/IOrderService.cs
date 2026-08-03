@@ -7,6 +7,7 @@ namespace SmartInventory.OrderService.Services
     {
         public Task<OrderDto> CreateOrderAsync(CreateOrderRequest request);
         public Task<OrderDto> GetOrderByIdAsync(string orderId);
+        Task<IEnumerable<OrderDto>> GetAllOrdersAsync();
 
         public Task<IEnumerable<OrderDto>> GetOrdersByCustomerIdAsync(string customerId);
 

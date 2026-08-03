@@ -24,6 +24,13 @@ namespace SmartInventory.OrderService.Controllers
             return StatusCode(201, order);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var orders = await _orderService.GetAllOrdersAsync();
+            return Ok(orders);
+        }
+
         [HttpGet("{orderId}")]
         public async Task<IActionResult> GetOrderByIdAsync(string orderId)
         {

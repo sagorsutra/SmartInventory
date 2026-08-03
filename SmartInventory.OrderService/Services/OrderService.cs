@@ -141,5 +141,30 @@ namespace SmartInventory.OrderService.Services
             var result = await _orders.UpdateOneAsync(o => o.Id == orderId, update);
             return result.ModifiedCount > 0;
         }
+        public async Task<IEnumerable<OrderDto>> GetAllOrdersAsync()
+        {
+            var orders = await _orders.Find(_ => true).ToListAsync();
+
+            var orderDtos = new List<OrderDto>();
+
+            foreach (var order in orders)
+            {
+                var itemDtos = order.OrderItems.Select(item =>
+                    new OrderItemDto(item.ProductId, item.ProductName, item.Quantity, item.UnitPrice)
+                ).ToList();
+
+                orderDtos.Add(new OrderDto(
+                    order.Id!,
+                    order.CustomerId,
+                    order.TotalAmount,
+                    order.OrderDate,
+                    order.Status.ToString(),
+                    itemDtos,
+                    order.ShippingAddress
+                ));
+            }
+
+            return orderDtos;
+        }
     }
 }
