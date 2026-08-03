@@ -145,6 +145,23 @@
                     </div>
                 </form>
 
+                <div class="panel">
+                    <p class="panel-title">Reserve / release stock (order fulfillment)</p>
+                    <div class="field-grid" style="grid-template-columns: 1fr 1fr;">
+                        <form id="reserve-form" style="display:flex; gap:8px;">
+                            <input type="text" id="reserve-product-id" placeholder="Product ID" required>
+                            <input type="number" id="reserve-quantity" placeholder="Qty" min="1" required style="max-width:70px;">
+                            <button type="submit" class="btn btn-primary btn-small">Reserve</button>
+                        </form>
+                        <form id="release-form" style="display:flex; gap:8px;">
+                            <input type="text" id="release-product-id" placeholder="Product ID" required>
+                            <input type="number" id="release-quantity" placeholder="Qty" min="1" required style="max-width:70px;">
+                            <button type="submit" class="btn btn-ghost btn-small">Release</button>
+                        </form>
+                    </div>
+                    <p id="stock-action-message" class="error-text"></p>
+                </div>
+
                 <div class="list-header">
                     <button id="inv-alerts-btn" class="btn btn-warn btn-small">⚠ Low-stock alerts</button>
                     <input type="text" id="inv-lookup-id" class="search-input" placeholder="Check stock for Product ID…">

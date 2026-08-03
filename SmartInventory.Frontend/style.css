@@ -287,3 +287,11 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; letter-spacing:
 @media (max-width: 860px) {
     #cart-drawer { width: 100%; }
 }
+
+/* ===== Order status control ===== */
+.status-control { display: flex; align-items: center; gap: 8px; margin-top: 4px; flex-wrap: wrap; }
+.status-select {
+    padding: 6px 10px; border-radius: 5px; border: 1px solid var(--border);
+    background: var(--surface-2); color: var(--text); font-size: 12px;
+}
+.status-save-msg { font-size: 11px; }

@@ -20,6 +20,8 @@ function enterApp() {
     loadProducts();
     if (currentUser.role === "Customer") {
         loadOrdersForCustomer(currentUser.username);
+    } else {
+        loadAllOrders();
     }
 }
 

@@ -62,3 +62,50 @@ function renderInventoryRecords(records) {
         inventoryList.appendChild(card);
     });
 }
+
+// ---- Reserve / Release stock (Staff & Admin) ----
+const reserveForm = document.getElementById("reserve-form");
+const releaseForm = document.getElementById("release-form");
+const stockActionMessage = document.getElementById("stock-action-message");
+
+function stockAction(url, productId, quantity, actionLabel) {
+    stockActionMessage.textContent = `${actionLabel}…`;
+    stockActionMessage.style.color = "var(--text-muted)";
+    fetch(url, {
+        method: "POST",
+        headers: authHeaders(),
+        body: JSON.stringify({ productId, quantity })
+    })
+        .then(r => {
+            if (!r.ok) throw new Error(`${actionLabel} failed — not enough stock or product not found.`);
+            stockActionMessage.style.color = "#6FCF97";
+            stockActionMessage.textContent = `${actionLabel} succeeded.`;
+        })
+        .catch(err => {
+            stockActionMessage.style.color = "var(--danger)";
+            stockActionMessage.textContent = err.message;
+        });
+}
+
+if (reserveForm) {
+    reserveForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        stockAction(
+            `${INVENTORY_URL}/reserve`,
+            document.getElementById("reserve-product-id").value.trim(),
+            parseInt(document.getElementById("reserve-quantity").value),
+            "Reserve"
+        );
+    });
+}
+if (releaseForm) {
+    releaseForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        stockAction(
+            `${INVENTORY_URL}/release`,
+            document.getElementById("release-product-id").value.trim(),
+            parseInt(document.getElementById("release-quantity").value),
+            "Release"
+        );
+    });
+}
