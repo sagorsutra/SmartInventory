@@ -16,7 +16,9 @@ namespace SmartInventory.InventoryService.Services
             var response = await _httpClient.GetAsync($"api/product/{productId}");
             if (response.IsSuccessStatusCode)
             {
-                var product = await response.Content.ReadFromJsonAsync<ProductInfo>();
+                var product = await response.Content.ReadFromJsonAsync<ProductInfo>(
+                    new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true }
+                );
                 return product!;
             }
             else
