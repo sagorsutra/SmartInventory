@@ -31,7 +31,10 @@ function renderOrders(orders) {
     orders.forEach(order => {
         const card = document.createElement("div");
         card.className = "order-card";
-        const itemsHtml = order.items.map(i => `${i.quantity}× ${i.productName} (₹${i.unitPrice})`).join(" · ");
+        const orderItems = order.items || order.orderItems || [];
+        const itemsHtml = orderItems.length > 0
+            ? orderItems.map(i => `${i.quantity}× ${i.productName} (₹${i.unitPrice})`).join(" · ")
+            : "No items";
         card.innerHTML = `
             <h3><span class="status-light ${statusLightClass(order.status)}"></span> Order ${order.orderId ? order.orderId.slice(-6) : ""} <span class="tag">${order.status}</span></h3>
             <p class="meta">${order.customerId} — total ₹${order.totalAmount} — ${order.shippingAddress}</p>
